@@ -41,3 +41,12 @@ for feature in numerical_features:
     plt.savefig(f'{feature}_distribution.png')
     plt.close()
     
+    
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='Category', y='Purchase Amount (USD)', data=df)
+plt.title('Purchase Amount by Category')
+plt.xlabel('Category')
+plt.tight_layout()
+plt.savefig('Purchase_Amount_by_Category_distribution.png')
+plt.close()
+
