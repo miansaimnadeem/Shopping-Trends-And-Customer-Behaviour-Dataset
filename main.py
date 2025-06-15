@@ -50,3 +50,39 @@ plt.tight_layout()
 plt.savefig('Purchase_Amount_by_Category_distribution.png')
 plt.close()
 
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='Gender', y='Purchase Amount (USD)', data=df)
+plt.title('Purchase Amount (USD) by Gender')
+plt.xlabel('Gender')
+plt.ylabel('Purchase Amount (USD)')
+plt.tight_layout()
+plt.savefig('purchase_amount_by_gender.png')
+plt.close()
+
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x='Age', y='Purchase Amount (USD)', data=df)
+plt.title('Age vs. Purchase Amount (USD)')
+plt.xlabel('Age')
+plt.ylabel('Purchase Amount (USD)')
+plt.tight_layout()
+plt.savefig('age_vs_purchase_amount.png')
+plt.close()
+
+plt.figure(figsize=(10, 8))
+sns.heatmap(df[['Age', 'Purchase Amount (USD)', 'Review Rating', 'Previous Purchases']].corr(), annot=True, cmap='coolwarm', fmt=".2f")
+plt.title('Correlation Heatmap')
+plt.tight_layout()
+plt.savefig('correlation_heatmap.png')
+plt.close()
+
+bins = [10, 20, 30, 40, 50, 60, 70]
+labels = ['10-19', '20-29', '30-39', '40-49', '50-59', '60-69']
+df['Age Group'] = pd.cut(df['Age'], bins=bins, labels=labels, right=False)
+
+
+df['Spending Category'] = pd.qcut(df['Purchase Amount (USD)'], q=4, labels=['Low Spender', 'Medium Spender', 'High Spender', 'Very High Spender'])
+
+print("\nDataFrame with new features:")
+print(df.head())
+
+df.to_csv('engineered_shopping_trends.csv', index=False)
